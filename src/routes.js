@@ -8,6 +8,8 @@ import AddCourse from "./components/course/AddCourse"
 import ShowCourse from "./components/course/ShowCourse"
 
 import Login from "./pages/Login"
+import Home from "./pages/Home"
+import Register from "./pages/Register"
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -29,6 +31,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         <PrivateRoute path="/add" component={AddCourse} />
         <PrivateRoute path="/courses/:id" component={ShowCourse} />
         <Route path="/login" component={Login} />
+        <PrivateRoute path="/home" component={Home} />
+        <PrivateRoute path="/register" component={Register} />
         <Route path="*" component={() => <h1>Page not found</h1>} />
       </Switch>
     </BrowserRouter>

@@ -1,0 +1,21 @@
+.form-register {
+    max-width: 35em;
+    margin: 5em 0 10em 0;
+}
+
+@media only screen and (min-width: 768px) {
+
+.input-label {
+    width: 15em;
+    display: inline-block;
+    text-align: right;
+    margin: 0;
+    padding: 0.5em;
+}
+
+.input-div {
+    display: flex;
+    flex-direction: row;
+}
+
+}
