@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import CourseDataService from "../../services/course"
 
 
-export default class CursoList extends Component {
+export default class ListCourse extends Component {
 
     constructor(props) {
         super(props)
