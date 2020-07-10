@@ -1,5 +1,6 @@
 import React from "react"
-import { BrowserRouter, Route, Switch, Redirect, Link } from "react-router-dom"
+import { Router, Route, Switch, Redirect } from "react-router-dom"
+import { history } from "./services/history"
 
 import { isAuthenticated } from "./services/auth"
 
@@ -22,22 +23,24 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         )
       }
     />
-  );
-  
-  const Routes = () => (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={"/"} component={ListCourse} />
-        <PrivateRoute path="/add" component={AddCourse} />
-        <PrivateRoute path="/courses/:id" component={ShowCourse} />
-        <Route path="/login" component={Login} />
-        <PrivateRoute path="/home" component={Home} />
-        <PrivateRoute path="/register" component={Register} />
-        <Route path="*" component={() => <h1>Page not found</h1>} />
-      </Switch>
-    </BrowserRouter>
-  );
-  
-  export default Routes;
+);
+ 
+const Routes = () => (
+    <Router history={history}>
+        <Switch>
+            <Route exact path={"/"} component={ListCourse} />
+            <PrivateRoute path="/add" component={AddCourse} />
+            <PrivateRoute path="/courses/:id" component={ShowCourse} />
+            <Route path="/login" component={Login} />
+            <PrivateRoute path="/home" component={Home} />
+            <PrivateRoute path="/register" component={Register} />
+            <Route path="/404" component={() => <p>Not found</p>}/>
+            <Route path="/500" component={() => <p>Server error</p>}/>
+            
+        </Switch>
+    </Router>
+);
+
+export default Routes;
 
       
