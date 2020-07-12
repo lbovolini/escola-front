@@ -49,23 +49,23 @@ export default class Register extends Component {
     }
 
     onChangeName(e) {
-      this.setState({ name: e.target.value })
+        this.setState({ name: e.target.value })
     }
 
     onChangeEmail(e) {
-      this.setState({ email: e.target.value })
+        this.setState({ email: e.target.value })
     }
 
     onChangePassword(e) {
-      this.setState({ password: e.target.value })
+        this.setState({ password: e.target.value })
     }
 
     onChangeBirthday(e) {
-      this.setState({ birthday: e.target.value })
+        this.setState({ birthday: e.target.value })
     }
 
     onChangeCourse(e) {
-      this.setState({ cursoDTO: e.target.value })
+        this.setState({ cursoDTO: e.target.value })
     }
 
     render() {
