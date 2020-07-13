@@ -6,7 +6,7 @@
 @media only screen and (min-width: 768px) {
 
 .input-label {
-    width: 15em;
+    width: 10em;
     display: inline-block;
     text-align: right;
     margin: 0;
@@ -16,6 +16,10 @@
 .input-div {
     display: flex;
     flex-direction: row;
+}
+
+.input-error {
+    flex: 1
 }
 
 }
