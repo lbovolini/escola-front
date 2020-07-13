@@ -53,7 +53,7 @@ export default class Register extends Component {
         if (hasError) { return }
 
         StudentDataService.create(student)
-            .then(data => console.log(data))
+            .then(() => this.props.history.push("/login"))
             .catch(e => console.log(e))
     }
 
