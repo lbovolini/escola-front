@@ -11,6 +11,10 @@ export const validate = (student) => {
         errors.email = "Email is required"
     }
 
+    if (student.email && !/^\S+@\S+$/.test(student.email)) {
+        errors.email = "Invalid email address"
+    }
+
     if (!student.password || !student.password.length) {
         errors.password = "Password is required"
     }
