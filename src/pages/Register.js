@@ -78,7 +78,7 @@ export default class Register extends Component {
     }
 
     render() {
-        const options = this.state.courses.map(course => <option key={course.id} value={course.id}>{course.name}</option>)
+        const options = this.state.courses.sort((a, b) => a.name.localeCompare(b.name)).map(course => <option key={course.name} value={course.id}>{course.name}</option>)
         const errors = this.state.errors
         const validated = this.state.validated
         const name = errors.name ? "is-invalid" :  "is-valid"
