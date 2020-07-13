@@ -2,6 +2,8 @@ import axios from "axios";
 import { getToken } from "../services/auth"
 import { history } from "../services/history"
 
+import swal from 'sweetalert';
+
 const api = axios.create({
     baseURL: "http://localhost:8080/escola-1.0-SNAPSHOT/",
     headers: {
@@ -21,6 +23,8 @@ api.interceptors.response.use(function(response) {
     return response
 }, function(error) {
     const status = error.response.status;
+
+    swal("Error!", "Something went wrong.", "error");
 
     if (status === 400) {
         history.push("/400")
