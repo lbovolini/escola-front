@@ -43,7 +43,7 @@ export default class Register extends Component {
             email,
             password,
             birthday,
-            cursoDTO
+            cursoDTO: parseInt(cursoDTO)
         }
        
         const { errors, hasError } = validate(student)
