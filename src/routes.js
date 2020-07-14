@@ -33,7 +33,7 @@ const Routes = () => (
             <PrivateRoute path="/courses/:id" component={ShowCourse} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/home" component={Home} />
-            <PrivateRoute path="/register" component={Register} />
+            <Route path="/register" component={Register} />
             <Route path="/404" component={() => <p>Not found</p>}/>
             <Route path="/500" component={() => <p>Server error</p>}/>
             

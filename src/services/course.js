@@ -15,7 +15,7 @@ class CourseDataService {
     }
 
     getAll() {
-        return http.get("/api/v1/cursos")
+        return http.get("/signup/courses")
     }
 
     update(id, data) {
