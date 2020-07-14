@@ -26,7 +26,7 @@ export default class Login extends Component {
         const { email, password } = this.state
 
         try {
-            const response = await api.post("/login", { email, password })
+            const response = await api.post("/student/login", { email, password })
             login(response.data)
         } catch (err) {
             console.log(err)
