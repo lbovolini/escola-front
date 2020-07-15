@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "../services/auth"
+import { getToken, getRole } from "../services/auth"
 import { history } from "../services/history"
 
 import swal from 'sweetalert';
@@ -12,10 +12,15 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(async config => {
+    
     const token = getToken()
+    const role = getRole()
+
     if (token) {
         config.headers.Authorization = `Bearer ${token}`
+        config.headers.Role = role
     }
+
     return config
 })
 

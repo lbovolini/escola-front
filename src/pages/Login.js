@@ -27,7 +27,7 @@ export default class Login extends Component {
 
         try {
             const response = await api.post("/student/login", { email, password })
-            login(response.data)
+            login(response.data, "STUDENT")
         } catch (err) {
             console.log(err)
         }
