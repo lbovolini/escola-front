@@ -14,10 +14,12 @@ export default class Login extends Component {
         super(props)
         this.onChangeEmail = this.onChangeEmail.bind(this)
         this.onChangePassword = this.onChangePassword.bind(this)
+        this.onChangeRole = this.onChangeRole.bind(this)
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            role: "STUDENT"
         }
     }
 
@@ -43,6 +45,10 @@ export default class Login extends Component {
         this.setState({
             password: e.target.value
         })
+    }
+
+    onChangeRole(e) {
+        this.setState({ role: e.target.value })
     }
 
     required = value => {
@@ -84,6 +90,16 @@ export default class Login extends Component {
                             onChange={this.onChangePassword}
                             validations={[this.required]}
                         />
+                        <div className="radio-input-role" onChange={this.onChangeRole}>
+                            <div className="radio-label">
+                                <input className="form-check-input input-radio" type="radio" value="STUDENT" name="role" id="radioStudent" checked/>
+                                <label for="radioStudent">Student</label>
+                            </div>
+                            <div className="radio-label">
+                                <input className="form-check-input input-radio" type="radio" value="TEACHER" name="role" id="radioTeacher"/>
+                                <label for="radioTeacher">Teacher</label>
+                            </div>
+                        </div>
                         <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                         <p className="mt-5 mb-3 text-muted">&copy; 2020</p>
                     </form>
