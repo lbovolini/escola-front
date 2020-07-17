@@ -25,11 +25,12 @@ api.interceptors.request.use(async config => {
 })
 
 api.interceptors.response.use(function(response) {
+    console.log(response)
     return response
 }, function(error) {
     const status = error.response.status;
 
-    swal("Error!", "Something went wrong.", "error");
+    
 
     if (status === 400) {
         history.push("/400")
@@ -44,7 +45,11 @@ api.interceptors.response.use(function(response) {
     }
 
     if (status === 500) {
-        history.push("/500")
+        if (error.response.data) {
+            swal("Error!", error.response.data, "error");
+        } else {
+            history.push("/500")
+        }
     }
 
     return Promise.reject(error)
