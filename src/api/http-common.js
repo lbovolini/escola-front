@@ -29,9 +29,7 @@ api.interceptors.response.use(function(response) {
     return response
 }, function(error) {
     const status = error.response.status;
-
-    
-
+  
     if (status === 400) {
         history.push("/400")
     }
@@ -45,8 +43,8 @@ api.interceptors.response.use(function(response) {
     }
 
     if (status === 500) {
-        if (error.response.data) {
-            swal("Error!", error.response.data, "error");
+        if (error.response.data.message) {
+            swal("Error!", error.response.data.message, "error");
         } else {
             history.push("/500")
         }
