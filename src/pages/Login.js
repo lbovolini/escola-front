@@ -2,11 +2,6 @@ import React, { Component } from "react"
 import api from "../api/http-common"
 import { login } from "../services/auth"
 
-import Form from "react-validation/build/form"
-import Input from "react-validation/build/input"
-
-import { isEmail } from "validator"
-
 import "./Login.css"
 
 export default class Login extends Component {
@@ -23,87 +18,58 @@ export default class Login extends Component {
         }
     }
 
-    handleLogin = async e => {
-        e.preventDefault()
-        const { email, password } = this.state
+    login = async e => {
+        const { email, password, role } = this.state
+        const credentials = {
+            email,
+            password,
+            role
+        }
 
         try {
-            const response = await api.post("/student/login", { email, password })
-            login(response.data, "STUDENT")
+            const response = await api.post("/student/login", credentials )
+            login(response.data, role)
         } catch (err) {
             console.log(err)
         }
     }
 
     onChangeEmail(e) {
-        this.setState({
-            email: e.target.value
-        })
+        this.setState({ email: e.target.value })
     }
 
     onChangePassword(e) {
-        this.setState({
-            password: e.target.value
-        })
+        this.setState({ password: e.target.value })
     }
 
     onChangeRole(e) {
+        console.log("E " + e.target.value)
         this.setState({ role: e.target.value })
-    }
-
-    required = value => {
-        if (!value) {
-            return (
-                <div className="alert alert-danger" role="alert">
-                    This field is required!
-                </div>
-            )
-        }
-    }
-
-    email = value => {
-        if (!isEmail(value)) {
-            return (
-                <div className="alert alert-danger" role="alert">
-                    This is not a valid email.
-                </div>
-            )
-        }
     }
 
     render() {
         return (
             <div className="body-signin ">
-                <div className="text-center">
-                    <form className="form-signin" onSubmit={this.handleLogin}>
-                        <img className="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"/>
-                        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-                        <label for="inputEmail" className="sr-only">Email address</label>
-                        <input type="email" id="inputEmail" className="form-control" placeholder="Email address" autoFocus 
-                            value={this.state.email}
-                            onChange={this.onChangeEmail}
-                            validations={[this.required, this.email]}
-                        />
-                        <label for="inputPassword" className="sr-only">Password</label>
-                        <input type="password" id="inputPassword" className="form-control" placeholder="Password"
-                            value={this.state.password}
-                            onChange={this.onChangePassword}
-                            validations={[this.required]}
-                        />
-                        <div className="radio-input-role" onChange={this.onChangeRole}>
-                            <div className="radio-label">
-                                <input className="form-check-input input-radio" type="radio" value="STUDENT" name="role" id="radioStudent" checked/>
-                                <label for="radioStudent">Student</label>
-                            </div>
-                            <div className="radio-label">
-                                <input className="form-check-input input-radio" type="radio" value="TEACHER" name="role" id="radioTeacher"/>
-                                <label for="radioTeacher">Teacher</label>
-                            </div>
+                <form className="form-signin">
+                    <img className="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"/>
+                    <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+                    <label for="inputEmail" className="sr-only">Email address</label>
+                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" autoFocus value={this.state.email} onChange={this.onChangeEmail}/>
+                    <label for="inputPassword" className="sr-only">Password</label>
+                    <input type="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}/>
+                    <div className="radio-input-role" onChange={this.onChangeRole}>
+                        <div className="radio-label">
+                            <input className="form-check-input input-radio" type="radio" value="STUDENT" name="role" id="radioStudent" checked/>
+                            <label for="radioStudent">Student</label>
                         </div>
-                        <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                        <p className="mt-5 mb-3 text-muted">&copy; 2020</p>
-                    </form>
-                </div>
+                        <div className="radio-label">
+                            <input className="form-check-input input-radio" type="radio" value="TEACHER" name="role" id="radioTeacher"/>
+                            <label for="radioTeacher">Teacher</label>
+                        </div>
+                    </div>
+                    <button className="btn btn-lg btn-primary btn-block" type="button" onClick={this.login}>Sign in</button>
+                    <p className="mt-5 mb-3 text-muted">&copy; 2020</p>
+                </form>
             </div>
         )
     }
