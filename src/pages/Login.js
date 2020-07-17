@@ -43,7 +43,6 @@ export default class Login extends Component {
     }
 
     onChangeRole(e) {
-        console.log("E " + e.target.value)
         this.setState({ role: e.target.value })
     }
 
@@ -57,13 +56,13 @@ export default class Login extends Component {
                     <input type="email" id="inputEmail" className="form-control" placeholder="Email address" autoFocus value={this.state.email} onChange={this.onChangeEmail}/>
                     <label for="inputPassword" className="sr-only">Password</label>
                     <input type="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.password} onChange={this.onChangePassword}/>
-                    <div className="radio-input-role" onChange={this.onChangeRole}>
+                    <div className="radio-input-role">
                         <div className="radio-label">
-                            <input className="form-check-input input-radio" type="radio" value="STUDENT" name="role" id="radioStudent" checked/>
+                            <input className="form-check-input input-radio" type="radio" value="STUDENT" name="role" id="radioStudent" onClick={this.onChangeRole}/>
                             <label for="radioStudent">Student</label>
                         </div>
                         <div className="radio-label">
-                            <input className="form-check-input input-radio" type="radio" value="TEACHER" name="role" id="radioTeacher"/>
+                            <input className="form-check-input input-radio" type="radio" value="TEACHER" name="role" id="radioTeacher" onClick={this.onChangeRole}/>
                             <label for="radioTeacher">Teacher</label>
                         </div>
                     </div>
