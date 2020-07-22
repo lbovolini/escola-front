@@ -2,16 +2,18 @@ import http from "../api/http-common"
 
 class CourseDataService {
 
+    api = "/api/v1/cursos"
+
     create(data) {
-        return http.post("/api/v1/cursos", data)
+        return http.post(`${this.api}`, data)
     }
 
     delete(id) {
-        return http.delete(`/api/v1/cursos/${id}`)
+        return http.delete(`${this.api}/${id}`)
     }
 
     get(id) {
-        return http.get(`/api/v1/cursos/${id}`)
+        return http.get(`${this.api}/${id}`)
     }
 
     getAll() {
@@ -19,7 +21,7 @@ class CourseDataService {
     }
 
     update(id, data) {
-        return http.put(`/api/v1/cursos/${id}`, data)
+        return http.put(`${this.api}/${id}`, data)
     }
 }
 
