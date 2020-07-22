@@ -18,7 +18,7 @@ export default class Login extends Component {
         }
     }
 
-    login = async e => {
+    login = () => {
         const { email, password, role } = this.state
         const credentials = {
             email,
@@ -26,13 +26,12 @@ export default class Login extends Component {
             role
         }
 
-        try {
-            const response = await api.post("/student/login", credentials )
-            login(response.data, role)
-            this.props.history.push({ pathname: "/home", email: email })
-        } catch (err) {
-            console.log(err)
-        }
+        api.post("/student/login", credentials)
+            .then(user => {
+                login(user.data)
+                this.props.history.push("/home")
+            }).catch(e => console.log(e))
+
     }
 
     onChangeEmail(e) {

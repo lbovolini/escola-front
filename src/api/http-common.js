@@ -28,6 +28,9 @@ api.interceptors.response.use(function(response) {
     console.log(response)
     return response
 }, function(error) {
+    if (!error.response) {
+        return Promise.reject(error)
+    }
     const status = error.response.status;
   
     if (status === 400) {
