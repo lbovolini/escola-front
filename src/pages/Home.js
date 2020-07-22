@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 
+import ListStudentDisciplines from "../components/student/ListStudentDisciplines"
+
 export default class Home extends Component {
 
     render() {
@@ -41,7 +43,8 @@ export default class Home extends Component {
                         </div>
                     </div>
                 </nav>
-
+                <ListStudentDisciplines/>
+                <div>{this.props.location.email}</div>
             </div>
         )
     }

@@ -29,6 +29,7 @@ export default class Login extends Component {
         try {
             const response = await api.post("/student/login", credentials )
             login(response.data, role)
+            this.props.history.push({ pathname: "/home", email: email })
         } catch (err) {
             console.log(err)
         }
