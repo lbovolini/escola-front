@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { getUserId } from "../../services/auth"
+
 import StudentService from "../../services/student-service"
 
 export default class ListStudentDisciplines extends Component {
@@ -12,7 +14,8 @@ export default class ListStudentDisciplines extends Component {
     }
 
     componentDidMount() {
-        StudentService.getDisciplines(3)
+        const userId = getUserId()
+        StudentService.getDisciplines(userId)
             .then(disciplines => this.setState({ disciplines: disciplines.data }))
             .catch(e => console.log(e))
     }
@@ -21,12 +24,9 @@ export default class ListStudentDisciplines extends Component {
         const { disciplines } = this.state
 
         return (
-            <div>
+            <div class="list-group">
                 {disciplines.map(discipline => (
-                    <div>
-                        <li>{discipline.id}</li>
-                        <li>{discipline.name}</li>
-                    </div>
+                    <button type="button" class="list-group-item list-group-item-action">{discipline.name}</button>
                 ))}
             </div>
         )
