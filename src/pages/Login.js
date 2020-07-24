@@ -1,12 +1,16 @@
 import React, { Component } from "react"
-import api from "../api/http-common"
 import { login } from "../services/auth"
+
+import AdministratorDataService from "../services/administrator"
+import StudentDataService from "../services/student"
+import TeacherDataService from "../services/teacher"
 
 import "./Login.css"
 
 export default class Login extends Component {
     constructor(props) {
         super(props)
+        this.handleLogin = this.handleLogin.bind(this)
         this.onChangeEmail = this.onChangeEmail.bind(this)
         this.onChangePassword = this.onChangePassword.bind(this)
         this.onChangeRole = this.onChangeRole.bind(this)
@@ -18,7 +22,7 @@ export default class Login extends Component {
         }
     }
 
-    login = () => {
+    handleLogin() {
         const { email, password, role } = this.state
         const credentials = {
             email,
@@ -26,12 +30,27 @@ export default class Login extends Component {
             role
         }
 
-        api.post("/student/login", credentials)
-            .then(user => {
-                login(user.data)
-                this.props.history.push("/home")
-            }).catch(e => console.log(e))
-
+        if (role == "ADMINISTRATOR") {
+            AdministratorDataService.login(credentials)
+                .then(user => {
+                    login(user.data)
+                    this.props.history.push("/home")
+                }).catch(e => console.log(e))
+        }
+        else if (role === "STUDENT") {
+            StudentDataService.login(credentials)
+                .then(user => {
+                    login(user.data)
+                    this.props.history.push("/home")
+                }).catch(e => console.log(e))
+        }
+        else if (role == "TEACHER") {
+            TeacherDataService.login(credentials)
+                .then(user => {
+                    login(user.data)
+                    this.props.history.push("/home")
+                }).catch(e => console.log(e))
+        }
     }
 
     onChangeEmail(e) {
@@ -66,7 +85,7 @@ export default class Login extends Component {
                             <label for="radioTeacher">Teacher</label>
                         </div>
                     </div>
-                    <button className="btn btn-lg btn-primary btn-block" type="button" onClick={this.login}>Sign in</button>
+                    <button className="btn btn-lg btn-primary btn-block" type="button" onClick={this.handleLogin}>Sign in</button>
                     <p className="mt-5 mb-3 text-muted">&copy; 2020</p>
                 </form>
             </div>

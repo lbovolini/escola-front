@@ -20,6 +20,10 @@ class StudentDataService {
         return http.get(`${this.api}/${id}/disciplinas`)
     }
 
+    login(credentials) {
+        return http.post("/student/login", credentials)
+    }
+
     update(student) {
         return http.put(`${this.api}`, student)
     }
