@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
-import CourseService from "../services/course"
-import StudentService from "../services/student"
+import CourseService from "../services/course-service"
+import StudentService from "../services/student-service"
 import { validate } from "../validate/student-validate"
 
 import "./Register.css"
