@@ -1,10 +1,10 @@
 import http from "../api/http-common"
 
-class AdministratorDataService {
+class AdministratorService {
     
     login(credentials) {
         return http.post("/administrator/login", credentials)
     }
 }
 
-export default new AdministratorDataService()
+export default new AdministratorService()

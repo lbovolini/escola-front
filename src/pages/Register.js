@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
-import CourseDataService from "../services/course"
-import StudentDataService from "../services/student"
+import CourseService from "../services/course"
+import StudentService from "../services/student"
 import { validate } from "../validate/student"
 
 import "./Register.css"
@@ -30,7 +30,7 @@ export default class Register extends Component {
     }
 
     componentDidMount() {
-        CourseDataService.getAll()
+        CourseService.getAll()
             .then(response => this.setState({ courses: response.data }))
             .catch(e => console.log(e))
 
@@ -52,7 +52,7 @@ export default class Register extends Component {
 
         if (hasError) { return }
 
-        StudentDataService.create(student)
+        StudentService.create(student)
             .then(() => this.props.history.push("/login"))
             .catch(e => console.log(e))
     }

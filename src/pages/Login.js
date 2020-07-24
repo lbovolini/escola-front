@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { login } from "../services/auth"
 
-import AdministratorDataService from "../services/administrator"
-import StudentDataService from "../services/student"
-import TeacherDataService from "../services/teacher"
+import AdministratorService from "../services/administrator-service"
+import StudentService from "../services/student-service"
+import TeacherService from "../services/teacher-service"
 
 import "./Login.css"
 
@@ -31,21 +31,21 @@ export default class Login extends Component {
         }
 
         if (role == "ADMINISTRATOR") {
-            AdministratorDataService.login(credentials)
+            AdministratorService.login(credentials)
                 .then(user => {
                     login(user.data)
                     this.props.history.push("/home")
                 }).catch(e => console.log(e))
         }
         else if (role === "STUDENT") {
-            StudentDataService.login(credentials)
+            StudentService.login(credentials)
                 .then(user => {
                     login(user.data)
                     this.props.history.push("/home")
                 }).catch(e => console.log(e))
         }
         else if (role == "TEACHER") {
-            TeacherDataService.login(credentials)
+            TeacherService.login(credentials)
                 .then(user => {
                     login(user.data)
                     this.props.history.push("/home")

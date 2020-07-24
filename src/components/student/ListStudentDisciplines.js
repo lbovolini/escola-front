@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import StudentDataService from "../../services/student"
+import StudentService from "../../services/student"
 
 export default class ListStudentDisciplines extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export default class ListStudentDisciplines extends Component {
     }
 
     componentDidMount() {
-        StudentDataService.getDisciplines(3)
+        StudentService.getDisciplines(3)
             .then(disciplines => this.setState({ disciplines: disciplines.data }))
             .catch(e => console.log(e))
     }

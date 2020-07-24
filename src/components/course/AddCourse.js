@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import CourseDataService from "../../services/course"
+import CourseService from "../../services/course"
 
 export default class AddCourse extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ export default class AddCourse extends Component {
             name: this.state.name
         }
 
-        CourseDataService.create(data)
+        CourseService.create(data)
             .then(response => {
                 console.log(response.data)
             })

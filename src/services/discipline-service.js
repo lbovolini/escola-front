@@ -1,6 +1,6 @@
 import http from "../api/http-common"
 
-class DisciplineDataServide {
+class DisciplineServide {
 
     api = "/api/v1/disciplinas"
 
@@ -26,4 +26,4 @@ class DisciplineDataServide {
 
 }
 
-export default new DisciplineDataServide()
+export default new DisciplineServide()

@@ -1,10 +1,10 @@
 import http from "../api/http-common"
 
-class TeacherDataService {
+class TeacherService {
 
     login(credentials) {
         return http.post("/teacher/login", credentials)
     }
 }
 
-export default new TeacherDataService()
+export default new TeacherService()

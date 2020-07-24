@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import CourseDataService from "../../services/course"
+import CourseService from "../../services/course"
 
 
 export default class ShowCourse extends Component {
@@ -36,7 +36,7 @@ export default class ShowCourse extends Component {
     }
 
     get(id) {
-        CourseDataService.get(id)
+        CourseService.get(id)
             .then(response => {
                 this.setState({
                     course: response.data
@@ -46,13 +46,13 @@ export default class ShowCourse extends Component {
     }
 
     update() {
-        CourseDataService.update(this.state.course.id, this.state.course)
+        CourseService.update(this.state.course.id, this.state.course)
             .then(response => console.log(response.data))
             .catch(e => console.log(e))
     }
 
     delete() {
-        CourseDataService.delete(this.state.course.id)
+        CourseService.delete(this.state.course.id)
             .then(response => {
                 console.log(response.data)
                 this.props.history.push("/courses")

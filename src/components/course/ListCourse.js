@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import CourseDataService from "../../services/course"
+import CourseService from "../../services/course"
 
 
 export default class ListCourse extends Component {
@@ -26,7 +26,7 @@ export default class ListCourse extends Component {
     }
 
     getAll() {
-        CourseDataService.getAll()
+        CourseService.getAll()
             .then(response => {
                 this.setState({
                     cursos: response.data

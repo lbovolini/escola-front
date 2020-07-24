@@ -1,6 +1,6 @@
 import http from "../api/http-common"
 
-class StudentDataService {
+class StudentService {
 
     api = "/api/v1/alunos"
 
@@ -30,4 +30,4 @@ class StudentDataService {
 
 }
 
-export default new StudentDataService()
+export default new StudentService()
