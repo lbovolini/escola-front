@@ -2,7 +2,7 @@ import React, { Component } from "react"
 
 import CourseService from "../services/course"
 import StudentService from "../services/student"
-import { validate } from "../validate/student"
+import { validate } from "../validate/student-validate"
 
 import "./Register.css"
 
