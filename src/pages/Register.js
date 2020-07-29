@@ -4,8 +4,6 @@ import CourseService from "../services/course-service"
 import StudentService from "../services/student-service"
 import { validate } from "../validate/student-validate"
 
-import "./Register.css"
-
 export default class Register extends Component {
 
     constructor(props) {
@@ -89,35 +87,35 @@ export default class Register extends Component {
 
         return (
             <form className="form-register">
-                <div className="input-div mb-3">
+                <div className="input-div">
                     <label for="nameInput" className="form-label input-label">Name</label>
                     <div className="input-error">
                         <input type="text" className={"form-control " + (validated && name)} id="nameInput" value={this.state.name} onChange={this.onChangeName}/>
                         {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                     </div>
                 </div>
-                <div className="input-div mb-3">
+                <div className="input-div">
                     <label for="emailInput" className="form-label input-label">Email address</label>
                     <div className="input-error">
                         <input type="email" className={"form-control " + (validated && email)} id="emailInput" value={this.state.email} onChange={this.onChangeEmail}/>
                         {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                     </div>
                 </div>
-                <div className="input-div mb-3">
+                <div className="input-div">
                     <label for="passwordInput" className="form-label input-label">Password</label>
                     <div className="input-error">
                         <input type="password" className={"form-control " + (validated && password)} id="passwordInput" value={this.state.password} onChange={this.onChangePassword}/>
                         {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                     </div>
                 </div>
-                <div className="input-div mb-3">
+                <div className="input-div">
                     <label for="inputBirthday" className="form-label input-label">Birthday</label>
                     <div className="input-error">
                         <input type="date" className={"form-control " + (validated && birthday)} id="inputBirthday" value={this.state.birthday} onChange={this.onChangeBirthday}/>
                         {errors.birthday && <div className="invalid-feedback">{errors.birthday}</div>}
                     </div>
                 </div>
-                <div className="input-div mb-3">
+                <div className="input-div">
                     <label for="inputCourse" className="form-label input-label">Course</label>
                     <div className="input-error">
                         <select id="inputCourse" className={"form-control " + (validated && cursoDTO)}  value={this.state.cursoDTO} onChange={this.onChangeCourse} defaultValue={"0"}>

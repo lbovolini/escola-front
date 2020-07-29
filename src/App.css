@@ -16,3 +16,34 @@ footer {
 footer p {
   margin-bottom: .25rem;
 }
+
+/* FORM */
+
+.form-register {
+  max-width: 35em;
+  margin: 5em 1em 10em 1em;
+}
+
+@media only screen and (min-width: 768px) {
+
+.input-label {
+  width: 10em;
+  display: inline-block;
+  text-align: right;
+  margin: 0;
+  padding: 0.5em;
+}
+
+.input-div {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1em;
+}
+
+.input-error {
+  flex: 1
+}
+
+}
+
+/* END FORM */
