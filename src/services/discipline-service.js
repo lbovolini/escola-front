@@ -16,8 +16,8 @@ class DisciplineServide {
         return http.get(`${this.api}/${id}`)
     }
 
-    getClasses(id, groupId) {
-        return http.get(`${this.api}/${id}/aulas/${groupId}`)
+    getClasses(id, studentId) {
+        return http.get(`${this.api}/${id}/aulas/${studentId}`)
     }
 
     update(discipline) {

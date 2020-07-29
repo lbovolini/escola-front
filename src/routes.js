@@ -4,6 +4,8 @@ import { history } from "./services/history"
 
 import { isAuthenticated } from "./services/auth"
 
+import ListClass from "./components/class/ListClass"
+
 import ListCourse from "./components/course/ListCourse"
 import AddCourse from "./components/course/AddCourse"
 import ShowCourse from "./components/course/ShowCourse"
@@ -34,6 +36,7 @@ const Routes = () => (
             <Route path="/login" component={Login} />
             <PrivateRoute path="/home" component={Home} />
             <Route path="/register" component={Register} />
+            <PrivateRoute path="/class/:id" component={ListClass} />
             <Route path="/404" component={() => <p>Not found</p>}/>
             <Route path="/500" component={() => <p>Server error</p>}/>
             
