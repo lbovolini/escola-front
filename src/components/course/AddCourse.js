@@ -4,56 +4,49 @@ import CourseService from "../../services/course-service"
 export default class AddCourse extends Component {
     constructor(props) {
         super(props)
-        this.onChangeName = this.onChangeName.bind(this)
         this.save = this.save.bind(this)
+        this.onChangeName = this.onChangeName.bind(this)
 
         this.state = {
-            id: null,
-            name: ""
+            name: "",
+            errors: [],
+            validated: false
         }
-    }
-
-    onChangeName(e) {
-        this.setState({
-            name: e.target.value
-        })
     }
 
     save() {
-        const data = {
-            name: this.state.name
+        const { name } = this.state
+        const course = {
+            name
         }
 
-        CourseService.create(data)
-            .then(response => {
-                console.log(response.data)
-            })
+        CourseService.create(course)
+            .then(response => { console.log(response.data) })
             .catch(e => console.log(e))
     }
 
+    onChangeName(e) {
+        this.setState({ name: e.target.value })
+    }
+
     render() {
+        const errors = this.state.errors
+        const validated = this.state.validated
+        const name = errors.name ? "is-invalid" :  "is-valid"
+
         return (
-          <div className="submit-form">
-              <div>
-                <div className="form-group">
-                  <label htmlFor="title">Title</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    required
-                    value={this.state.name}
-                    onChange={this.onChangeName}
-                    name="name"
-                  />
+            <form className="form-register">
+                <div className="input-div">
+                    <label for="nameInput" className="form-label input-label">Name</label>
+                    <div className="input-error">
+                        <input type="text" className={"form-control " + (validated && name)} id="nameInput" value={this.state.name} onChange={this.onChangeName}/>
+                        {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+                    </div>
                 </div>
-    
-                <button onClick={this.save} className="btn btn-success">
-                  Submit
-                </button>
-              </div>
-            
-          </div>
+                <div className="float-right">
+                    <button type="button" className="btn btn-primary" onClick={this.save}>Save</button>
+                </div>
+            </form>
         );
     }
 }
