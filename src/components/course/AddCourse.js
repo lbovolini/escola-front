@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import CourseService from "../../services/course-service"
 
+import { validate } from "../../validate/course-validate"
+
 export default class AddCourse extends Component {
     constructor(props) {
         super(props)
@@ -20,6 +22,12 @@ export default class AddCourse extends Component {
             name
         }
 
+        const { errors, hasError } = validate(course)
+        this.setState({ errors })
+        this.setState({ validated: true })
+
+        if (hasError) { return }
+
         CourseService.create(course)
             .then(response => { console.log(response.data) })
             .catch(e => console.log(e))
@@ -37,7 +45,7 @@ export default class AddCourse extends Component {
         return (
             <form className="form-register">
                 <div className="input-div">
-                    <label for="nameInput" className="form-label input-label">Name</label>
+                    <label htmlFor="nameInput" className="form-label input-label">Name</label>
                     <div className="input-error">
                         <input type="text" className={"form-control " + (validated && name)} id="nameInput" value={this.state.name} onChange={this.onChangeName}/>
                         {errors.name && <div className="invalid-feedback">{errors.name}</div>}
