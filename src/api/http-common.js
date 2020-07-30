@@ -28,28 +28,33 @@ api.interceptors.response.use(function(response) {
     return response
 }, function(error) {
     if (!error.response) {
+        swal("Error!", "Something went wrong", "error");
         return Promise.reject(error)
     }
+
     const status = error.response.status;
   
     if (status === 400) {
         history.push("/400")
     }
-
-    if (status === 401) {
+    else if (status === 401) {
         history.push("/login")
     }
-
-    if (status === 404) {
+    else if (status === 403) {
+        swal("Error!", "You do not have permission", "error");
+    }
+    else if (status === 404) {
         history.push("/404")
     }
-
-    if (status === 500) {
+    else if (status === 500) {
         if (error.response.data.message) {
             swal("Error!", error.response.data.message, "error");
         } else {
             history.push("/500")
         }
+    }
+    else {
+        swal("Error!", "Something went wrong", "error");
     }
 
     return Promise.reject(error)
