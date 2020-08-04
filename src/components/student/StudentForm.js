@@ -1,19 +1,13 @@
 import React, { Component } from "react"
 
-import CourseService from "../services/course-service"
-import StudentService from "../services/student-service"
-import { validate } from "../validate/student-validate"
+import CourseService from "../../services/course-service"
+import StudentService from "../../services/student-service"
+import { validate } from "../../validate/student-validate"
 
-export default class Register extends Component {
+export default class StudentForm extends Component {
 
     constructor(props) {
         super(props)
-        this.save = this.save.bind(this)
-        this.onChangeName = this.onChangeName.bind(this)
-        this.onChangeEmail = this.onChangeEmail.bind(this)
-        this.onChangePassword = this.onChangePassword.bind(this)
-        this.onChangeBirthday = this.onChangeBirthday.bind(this)
-        this.onChangeCourse = this.onChangeCourse.bind(this)
 
         this.state = {
             name: "",
@@ -28,13 +22,15 @@ export default class Register extends Component {
     }
 
     componentDidMount() {
-        CourseService.getAll()
-            .then(response => this.setState({ courses: response.data }))
-            .catch(e => console.log(e))
-
+        const id = this.props.id
+        if (!id) {
+            CourseService.getAll()
+                .then(response => this.setState({ courses: response.data }))
+                .catch(e => console.log(e))
+        }
     }
 
-    save() {
+    onSave = () => {
         const { name, email, password, birthday, cursoDTO } = this.state
         const student = {
             name,
@@ -55,23 +51,23 @@ export default class Register extends Component {
             .catch(e => console.log(e))
     }
 
-    onChangeName(e) {
+    onChangeName = (e) => {
         this.setState({ name: e.target.value })
     }
 
-    onChangeEmail(e) {
+    onChangeEmail = (e) => {
         this.setState({ email: e.target.value })
     }
 
-    onChangePassword(e) {
+    onChangePassword = (e) => {
         this.setState({ password: e.target.value })
     }
 
-    onChangeBirthday(e) {
+    onChangeBirthday = (e) => {
         this.setState({ birthday: e.target.value })
     }
 
-    onChangeCourse(e) {
+    onChangeCourse = (e) => {
         this.setState({ cursoDTO: e.target.value })
     }
 
@@ -126,7 +122,7 @@ export default class Register extends Component {
                     </div>
                 </div>
                 <div className="float-right">
-                    <button type="button" className="btn btn-primary" onClick={this.save}>Save</button>
+                    <button type="button" className="btn btn-primary" onClick={this.onSave}>Save</button>
                 </div>
             </form>
         )
