@@ -10,6 +10,7 @@ export default class StudentForm extends Component {
         super(props)
 
         this.state = {
+            id: 0,
             name: "",
             email: "",
             password: "",
@@ -23,16 +24,34 @@ export default class StudentForm extends Component {
 
     componentDidMount() {
         const id = this.props.id
-        if (!id) {
-            CourseService.getAll()
-                .then(response => this.setState({ courses: response.data }))
-                .catch(e => console.log(e))
+        if (id) {
+            StudentService.get(id)
+                .then(response => this.setState({ 
+                    id: response.data.id,
+                    name: response.data.name,
+                    email: response.data.email,
+                    password: response.data.password,
+                    birthday: this.getDate(response.data.birthday),
+                    cursoDTO: response.data.cursoDTO.id
+                }))
         }
+        CourseService.getAll()
+            .then(response => this.setState({ courses: response.data }))
+            .catch(e => console.log(e))
+    }
+
+    getDate = (date) => {
+        const year = date[0]
+        const month = date[1] < 10 ? "0" + date[1] : date[1]
+        const day = date[2] < 10 ? "0" + date[2] : date[2]
+
+        return year + "-" + month + "-" + day
     }
 
     onSave = () => {
-        const { name, email, password, birthday, cursoDTO } = this.state
+        const { id, name, email, password, birthday, cursoDTO } = this.state
         const student = {
+            id,
             name,
             email,
             password,
@@ -46,9 +65,16 @@ export default class StudentForm extends Component {
 
         if (hasError) { return }
 
-        StudentService.create(student)
-            .then(() => this.props.history.push("/login"))
-            .catch(e => console.log(e))
+        if (this.props.id) {
+            StudentService.update(student)
+                .then(() => this.props.history.push("/"))
+                .catch(e => console.log(e))
+        } 
+        else {
+            StudentService.create(student)
+                .then(() => this.props.history.push("/login"))
+                .catch(e => console.log(e))
+        }
     }
 
     onChangeName = (e) => {

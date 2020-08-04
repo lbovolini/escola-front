@@ -12,7 +12,9 @@ import ShowCourse from "./components/course/ShowCourse"
 
 import Login from "./pages/Login"
 import Home from "./pages/Home"
-import Register from "./components/student/StudentForm"
+
+import AddStudentPage from "./pages/student/AddStudentPage"
+import EditStudentPage from "./pages/student/EditStudentPage"
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -34,6 +36,9 @@ const Routes = () => (
             <PrivateRoute path="/courses/add" component={AddCoursePage} />
             <PrivateRoute path="/courses/edit/:id" component={EditCoursePage} />
             <PrivateRoute path="/courses/:id" component={ShowCourse} />
+
+            <Route path="/students/add" component={AddStudentPage} />
+            <PrivateRoute path="/students/edit/:id" component={EditStudentPage} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/home" component={Home} />
             <PrivateRoute path="/class/:id" component={ListClass} />
