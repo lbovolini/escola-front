@@ -6,8 +6,8 @@ import { isAuthenticated } from "./services/auth"
 
 import ListClass from "./components/class/ListClass"
 
-import ListCourse from "./components/course/ListCourse"
-import AddCourse from "./components/course/AddCourse"
+import AddCoursePage from "./pages/course/AddCoursePage"
+import EditCoursePage from "./pages/course/EditCoursePage"
 import ShowCourse from "./components/course/ShowCourse"
 
 import Login from "./pages/Login"
@@ -30,8 +30,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const Routes = () => (
     <Router history={history}>
         <Switch>
-            <Route exact path={"/"} component={ListCourse} />
-            <PrivateRoute path="/add" component={AddCourse} />
+            <Route exact path={"/"} component={() => <p>Hello</p>} />
+            <PrivateRoute path="/courses/add" component={AddCoursePage} />
+            <PrivateRoute path="/courses/edit/:id" component={EditCoursePage} />
             <PrivateRoute path="/courses/:id" component={ShowCourse} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/home" component={Home} />

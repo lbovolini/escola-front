@@ -3,11 +3,9 @@ import CourseService from "../../services/course-service"
 
 import { validate } from "../../validate/course-validate"
 
-export default class AddCourse extends Component {
+export default class CourseForm extends Component {
     constructor(props) {
         super(props)
-        this.save = this.save.bind(this)
-        this.onChangeName = this.onChangeName.bind(this)
 
         this.state = {
             name: "",
@@ -15,8 +13,18 @@ export default class AddCourse extends Component {
             validated: false
         }
     }
+    componentDidMount() {
+        const id = this.props.id
 
-    save() {
+        if (id) {
+            CourseService.get(id)
+                .then(response => {
+                    this.setState({ name: response.data.name })
+                })
+        }
+    }
+
+    onSave = () => {
         const { name } = this.state
         const course = {
             name
@@ -28,12 +36,17 @@ export default class AddCourse extends Component {
 
         if (hasError) { return }
 
-        CourseService.create(course)
-            .then(response => { console.log(response.data) })
-            .catch(e => console.log(e))
+        const id = this.props.id
+        if (id) {
+            CourseService.update(id, course)
+        } else {
+            CourseService.create(course)
+                .then(response => { console.log(response.data) })
+                .catch(e => console.log(e))
+        }
     }
 
-    onChangeName(e) {
+    onChangeName = (e) => {
         this.setState({ name: e.target.value })
     }
 
@@ -52,7 +65,7 @@ export default class AddCourse extends Component {
                     </div>
                 </div>
                 <div className="float-right">
-                    <button type="button" className="btn btn-primary" onClick={this.save}>Save</button>
+                    <button type="button" className="btn btn-primary" onClick={this.onSave}>Save</button>
                 </div>
             </form>
         );
