@@ -5,7 +5,7 @@ import StudentForm from "../../components/student/StudentForm"
 export default class AddStudentPage extends Component {
     render() {
         return (
-            <StudentForm/>
+            <StudentForm history={this.props.history}/>
         )
     }
 }

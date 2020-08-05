@@ -28,6 +28,10 @@ class StudentService {
         return http.put(`${this.api}`, student)
     }
 
+    updateProfile(student) {
+        return http.put(`${this.api}/profile`, student)
+    }
+
 }
 
 export default new StudentService()

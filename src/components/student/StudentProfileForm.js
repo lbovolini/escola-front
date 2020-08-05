@@ -1,10 +1,9 @@
 import React, { Component } from "react"
 
-import CourseService from "../../services/course-service"
 import StudentService from "../../services/student-service"
 import { validate } from "../../validate/student-validate"
 
-export default class StudentForm extends Component {
+export default class StudentProfileForm extends Component {
 
     constructor(props) {
         super(props)
@@ -14,9 +13,8 @@ export default class StudentForm extends Component {
             name: "",
             email: "",
             password: "",
+            newPassword: "",
             birthday: "",
-            cursoDTO: 0,
-            courses: [],
             errors: {},
             validated: false,
         }
@@ -25,21 +23,15 @@ export default class StudentForm extends Component {
     componentDidMount() {
         const id = this.props.id
 
-        if (id) {
-            StudentService.get(id)
-                .then(response => this.setState({ 
-                    id: response.data.id,
-                    name: response.data.name,
-                    email: response.data.email,
-                    password: response.data.password,
-                    birthday: this.getDate(response.data.birthday),
-                    cursoDTO: response.data.cursoDTO.id
-                }))
-        }
+        this.setState({ id: id })
 
-        CourseService.getAll()
-            .then(response => this.setState({ courses: response.data }))
-            .catch(e => console.log(e))
+        StudentService.get(id)
+            .then(response => this.setState({ 
+                id: response.data.id,
+                name: response.data.name,
+                email: response.data.email,
+                birthday: this.getDate(response.data.birthday),
+            }))
     }
 
     getDate = (date) => {
@@ -51,14 +43,14 @@ export default class StudentForm extends Component {
     }
 
     onSave = () => {
-        const { id, name, email, password, birthday, cursoDTO } = this.state
+        const { id, name, email, password, newPassword, birthday } = this.state
         const student = {
             id,
             name,
             email,
             password,
+            newPassword,
             birthday,
-            cursoDTO: parseInt(cursoDTO)
         }
        
         const { errors, hasError } = validate(student)
@@ -67,16 +59,9 @@ export default class StudentForm extends Component {
 
         if (hasError) { return }
 
-        if (this.props.id) {
-            StudentService.update(student)
-                .then(() => this.props.history.push("/"))
-                .catch(e => console.log(e))
-        } 
-        else {
-            StudentService.create(student)
-                .then(() => this.props.history.push("/login"))
-                .catch(e => console.log(e))
-        }
+        StudentService.updateProfile(student)
+            .then(() => this.props.history.push("/"))
+            .catch(e => console.log(e))
     }
 
     onChangeName = (e) => {
@@ -91,23 +76,23 @@ export default class StudentForm extends Component {
         this.setState({ password: e.target.value })
     }
 
+    onChangeNewPassword = (e) => {
+        this.setState({ newPassword: e.target.value })
+    }
+
     onChangeBirthday = (e) => {
         this.setState({ birthday: e.target.value })
     }
 
-    onChangeCourse = (e) => {
-        this.setState({ cursoDTO: e.target.value })
-    }
 
     render() {
-        const options = this.state.courses.sort((a, b) => a.name.localeCompare(b.name)).map(course => <option key={course.name} value={course.id}>{course.name}</option>)
         const errors = this.state.errors
         const validated = this.state.validated
         const name = errors.name ? "is-invalid" :  "is-valid"
         const email = errors.email ? "is-invalid" : "is-valid"
         const password = errors.password ? "is-invalid" : "is-valid"
+        const newPassword = errors.newPassword ? "is-invalid" : "is-valid"
         const birthday = errors.birthday ? "is-invalid" : "is-valid"
-        const cursoDTO = errors.cursoDTO ? "is-invalid" : "is-valid"
 
         return (
             <form className="form-register">
@@ -126,27 +111,26 @@ export default class StudentForm extends Component {
                     </div>
                 </div>
                 <div className="input-div">
-                    <label htmlFor="passwordInput" className="form-label input-label">Password</label>
-                    <div className="input-error">
-                        <input type="password" className={"form-control " + (validated && password)} id="passwordInput" value={this.state.password} onChange={this.onChangePassword}/>
-                        {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-                    </div>
-                </div>
-                <div className="input-div">
                     <label htmlFor="inputBirthday" className="form-label input-label">Birthday</label>
                     <div className="input-error">
                         <input type="date" className={"form-control " + (validated && birthday)} id="inputBirthday" value={this.state.birthday} onChange={this.onChangeBirthday}/>
                         {errors.birthday && <div className="invalid-feedback">{errors.birthday}</div>}
                     </div>
                 </div>
-                <div className="input-div">
-                    <label htmlFor="inputCourse" className="form-label input-label">Course</label>
-                    <div className="input-error">
-                        <select id="inputCourse" className={"form-control " + (validated && cursoDTO)}  value={this.state.cursoDTO} onChange={this.onChangeCourse} defaultValue={"0"}>
-                            <option value="0" disabled>Choose a Course</option>
-                            {options}
-                        </select>
-                        {errors.cursoDTO && <div className="invalid-feedback">{errors.cursoDTO}</div>}
+                <div className="password-group">
+                    <div className="input-div">
+                        <label htmlFor="inputCurrentPassword" className="form-label input-label">Current Password</label>
+                        <div className="input-error">
+                            <input type="password" className={"form-control " + (validated && password)} id="inputCurrentPassword" value={this.state.password} onChange={this.onChangePassword}/>
+                            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                        </div>
+                    </div>
+                    <div className="input-div">
+                        <label htmlFor="inputNewPassword" className="form-label input-label">New Password</label>
+                        <div className="input-error">
+                            <input type="password" className={"form-control " + (validated && newPassword)} id="inputNewPassword" value={this.state.newPassword} onChange={this.onChangeNewPassword}/>
+                            {errors.newPassword && <div className="invalid-feedback">{errors.newPassword}</div>}
+                        </div>
                     </div>
                 </div>
                 <div className="float-right">

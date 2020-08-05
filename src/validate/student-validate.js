@@ -23,6 +23,10 @@ export const validate = (student) => {
         errors.password = "Minimum eight characters, at least one letter and one number"
     }
 
+    if (student.newPassword && !/^(?=.*[\d])(?=.*[a-z])[\w!@#$%^&*()-=+,.;:]{8,}$/.test(student.newPassword)) {
+        errors.newPassword = "Minimum eight characters, at least one letter and one number"
+    }
+
     if (!student.birthday || !student.birthday.length) {
         errors.birthday = "Birthday is required"
     }

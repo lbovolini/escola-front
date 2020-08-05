@@ -4,6 +4,8 @@ export const USER_ID_KEY = "id"
 
 export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY)
 
+export const isAdmin = () => this.getRole() === "ADMINISTRATOR"
+
 export const getToken = () => localStorage.getItem(TOKEN_KEY)
 
 export const getRole = () => localStorage.getItem(ROLE_KEY)

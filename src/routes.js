@@ -15,6 +15,7 @@ import Home from "./pages/Home"
 
 import AddStudentPage from "./pages/student/AddStudentPage"
 import EditStudentPage from "./pages/student/EditStudentPage"
+import StudentProfilePage from "./pages/student/StudentProfilePage"
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -39,6 +40,7 @@ const Routes = () => (
 
             <Route path="/students/add" component={AddStudentPage} />
             <PrivateRoute path="/students/edit/:id" component={EditStudentPage} />
+            <PrivateRoute path="/students/profile/:id" component={StudentProfilePage} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/home" component={Home} />
             <PrivateRoute path="/class/:id" component={ListClass} />
