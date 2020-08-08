@@ -23,14 +23,15 @@ export default class StudentProfileForm extends Component {
     componentDidMount() {
         const id = this.props.id
 
-        this.setState({ id: id })
+        this.setState({ id })
 
         StudentService.get(id)
-            .then(response => this.setState({ 
-                id: response.data.id,
-                name: response.data.name,
-                email: response.data.email,
-                birthday: this.getDate(response.data.birthday),
+            .then(response => response.data)
+            .then(student => this.setState({ 
+                id: student.id,
+                name: student.name,
+                email: student.email,
+                birthday: this.getDate(student.birthday),
             }))
     }
 
