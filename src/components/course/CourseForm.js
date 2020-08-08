@@ -8,6 +8,7 @@ export default class CourseForm extends Component {
         super(props)
 
         this.state = {
+            id: 0,
             name: "",
             errors: [],
             validated: false
@@ -18,16 +19,19 @@ export default class CourseForm extends Component {
 
         if (id) {
             CourseService.get(id)
-                .then(response => {
-                    this.setState({ name: response.data.name })
-                })
+                .then(response => response.data)
+                .then(course => this.setState({ 
+                    id: course.id,
+                    name: course.name,
+                }))
         }
     }
 
     onSave = () => {
-        const { name } = this.state
+        const { id, name } = this.state
         const course = {
-            name
+            id,
+            name,
         }
 
         const { errors, hasError } = validate(course)
@@ -36,12 +40,13 @@ export default class CourseForm extends Component {
 
         if (hasError) { return }
 
-        const id = this.props.id
-        if (id) {
-            CourseService.update(id, course)
+        if (this.props.id) {
+            CourseService.update(course)
+                .then(() => this.props.history.push("/"))
+                .catch(e => console.log(e))
         } else {
             CourseService.create(course)
-                .then(response => { console.log(response.data) })
+                .then(() => this.props.history.push("/"))
                 .catch(e => console.log(e))
         }
     }

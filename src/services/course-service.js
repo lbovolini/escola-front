@@ -4,8 +4,8 @@ class CourseService {
 
     api = "/api/v1/cursos"
 
-    create(data) {
-        return http.post(`${this.api}`, data)
+    create(course) {
+        return http.post(this.api, course)
     }
 
     delete(id) {
@@ -20,8 +20,8 @@ class CourseService {
         return http.get("/signup/courses")
     }
 
-    update(id, data) {
-        return http.put(`${this.api}/${id}`, data)
+    update(course) {
+        return http.put(this.api, course)
     }
 }
 
