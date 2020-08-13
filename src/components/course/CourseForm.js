@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import CourseService from "../../services/course-service"
 
 import { validate } from "../../validate/course-validate"
+import { handleErrors } from "../../util/error-util"
 
 export default class CourseForm extends Component {
     constructor(props) {
@@ -46,11 +47,13 @@ export default class CourseForm extends Component {
         if (this.props.id) {
             CourseService.update(course)
                 .then(() => this.props.history.push("/"))
-                .catch(e => console.log(e))
+                .catch(handleErrors)
+                .then(errors => this.setState({ errors }))
         } else {
             CourseService.create(course)
                 .then(() => this.props.history.push("/"))
-                .catch(e => console.log(e))
+                .catch(handleErrors)
+                .then(errors => this.setState({ errors }))
         }
     }
 
