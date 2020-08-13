@@ -35,10 +35,7 @@ api.interceptors.response.use(function(response) {
 
     const status = error.response.status;
   
-    if (status === 400) {
-        history.push("/400")
-    }
-    else if (status === 401) {
+    if (status === 401) {
         history.push("/login")
     }
     else if (status === 403) {

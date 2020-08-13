@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import CourseService from "../../services/course-service"
 import StudentService from "../../services/student-service"
 import { validate } from "../../validate/student-validate"
+import { handleErrors } from "../../util/error-util"
 
 export default class StudentForm extends Component {
 
@@ -71,12 +72,14 @@ export default class StudentForm extends Component {
         if (this.props.id) {
             StudentService.update(student)
                 .then(() => this.props.history.push("/"))
-                .catch(e => console.log(e))
+                .catch(handleErrors)
+                .then(errors => this.setState({ errors }))
         } 
         else {
             StudentService.create(student)
                 .then(() => this.props.history.push("/login"))
-                .catch(e => console.log(e))
+                .catch(handleErrors)
+                .then(errors => this.setState({ errors }))
         }
     }
 
