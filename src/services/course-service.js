@@ -20,6 +20,10 @@ class CourseService {
         return http.get("/signup/courses")
     }
 
+    getCurriculum(id) {
+        return http.get(`${this.api}/gradesCurriculares/${id}`)
+    }
+
     update(course) {
         return http.put(this.api, course)
     }

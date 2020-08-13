@@ -24,6 +24,9 @@ export default class CourseForm extends Component {
                     id: course.id,
                     name: course.name,
                 }))
+            CourseService.getCurriculum(id)
+                .then(response => console.log(response))
+                .catch(e => console.log(e))
         }
     }
 
