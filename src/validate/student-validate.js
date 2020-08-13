@@ -31,8 +31,8 @@ export const validate = (student) => {
         errors.birthday = "Birthday is required"
     }
 
-    if (student.cursoDTO === 0) {
-        errors.cursoDTO = "Select a Course"
+    if (student.courseId === 0) {
+        errors.courseId = "Select a Course"
     }
 
     for (let error in errors) {
