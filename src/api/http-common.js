@@ -27,6 +27,7 @@ api.interceptors.request.use(async config => {
 api.interceptors.response.use(function(response) {
     return response
 }, function(error) {
+    console.log(error.response)
     if (!error.response) {
         swal("Error!", "Something went wrong", "error");
         return Promise.reject(error)

@@ -15,7 +15,7 @@ export default class StudentForm extends Component {
             email: "",
             password: "",
             birthday: "",
-            cursoDTO: 0,
+            courseId: 0,
             courses: [],
             errors: {},
             validated: false,
@@ -33,7 +33,7 @@ export default class StudentForm extends Component {
                     email: response.data.email,
                     password: response.data.password,
                     birthday: this.getDate(response.data.birthday),
-                    cursoDTO: response.data.cursoDTO.id
+                    courseId: response.data.courseId
                 }))
         }
 
@@ -51,14 +51,14 @@ export default class StudentForm extends Component {
     }
 
     onSave = () => {
-        const { id, name, email, password, birthday, cursoDTO } = this.state
+        const { id, name, email, password, birthday, courseId } = this.state
         const student = {
             id,
             name,
             email,
             password,
             birthday,
-            cursoDTO: parseInt(cursoDTO)
+            courseId: parseInt(courseId)
         }
        
         const { errors, hasError } = validate(student)
@@ -96,7 +96,7 @@ export default class StudentForm extends Component {
     }
 
     onChangeCourse = (e) => {
-        this.setState({ cursoDTO: e.target.value })
+        this.setState({ courseId: e.target.value })
     }
 
     render() {
@@ -107,7 +107,7 @@ export default class StudentForm extends Component {
         const email = errors.email ? "is-invalid" : "is-valid"
         const password = errors.password ? "is-invalid" : "is-valid"
         const birthday = errors.birthday ? "is-invalid" : "is-valid"
-        const cursoDTO = errors.cursoDTO ? "is-invalid" : "is-valid"
+        const courseId = errors.courseId ? "is-invalid" : "is-valid"
 
         return (
             <form className="form-register">
@@ -142,11 +142,11 @@ export default class StudentForm extends Component {
                 <div className="input-div">
                     <label htmlFor="inputCourse" className="form-label input-label">Course</label>
                     <div className="input-error">
-                        <select id="inputCourse" className={"form-control " + (validated && cursoDTO)}  value={this.state.cursoDTO} onChange={this.onChangeCourse} defaultValue={"0"}>
+                        <select id="inputCourse" className={"form-control " + (validated && courseId)}  value={this.state.courseId} onChange={this.onChangeCourse} defaultValue={"0"}>
                             <option value="0" disabled>Choose a Course</option>
                             {options}
                         </select>
-                        {errors.cursoDTO && <div className="invalid-feedback">{errors.cursoDTO}</div>}
+                        {errors.courseId && <div className="invalid-feedback">{errors.courseId}</div>}
                     </div>
                 </div>
                 <div className="float-right">
