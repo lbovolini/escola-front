@@ -27,13 +27,14 @@ export default class StudentForm extends Component {
 
         if (id) {
             StudentService.get(id)
-                .then(response => this.setState({ 
-                    id: response.data.id,
-                    name: response.data.name,
-                    email: response.data.email,
-                    password: response.data.password,
-                    birthday: this.getDate(response.data.birthday),
-                    courseId: response.data.courseId
+                .then(response => response.data)
+                .then(student => this.setState({ 
+                    id: student.id,
+                    name: student.name,
+                    email: student.email,
+                    password: student.password,
+                    birthday: this.getDate(student.birthday),
+                    courseId: student.courseId
                 }))
         }
 
